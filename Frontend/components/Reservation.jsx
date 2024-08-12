@@ -36,7 +36,7 @@ const handleReservation=async(e)=>{
         toast.success(data.message);
         setFirstName("");
         setLastName("");
-        setPhone(0);
+        setPhone("");
         setEmail("");
         setTime("");
         setDate("");

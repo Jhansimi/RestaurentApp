@@ -12,7 +12,7 @@ dotenv.config({ path: "./config/config.env" });
 
 // CORS configuration
 app.use(cors({
-    origin: process.env.FRONTEND_URL, // Allow requests from the frontend URL
+    origin: 'http://localhost:5173', // Allow requests from the frontend URL
     methods: ["GET", "POST", "PUT", "DELETE"], // Allow necessary HTTP methods
     credentials: true // Allow credentials (cookies, authorization headers, etc.)
 }));

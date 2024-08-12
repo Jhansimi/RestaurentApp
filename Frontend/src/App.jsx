@@ -29,7 +29,10 @@ const router = createBrowserRouter([
 
 const App = () => {
   return (
+    <>
+    <Toaster/>
     <RouterProvider  router={router}/>
+    </>
 
   )
 }
