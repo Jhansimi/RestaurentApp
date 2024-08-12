@@ -1,27 +1,34 @@
 import express from "express";
-import cors from "cors"
-import dotenv from "dotenv"
-import {dbConnection} from "./database/dbConnection.js"
+import cors from "cors";
+import dotenv from "dotenv";
+import { dbConnection } from "./database/dbConnection.js";
 import { errorMiddleware } from "./error/error.js";
-import reservationRouter from "./routes/reservationRoutes.js"
+import reservationRouter from "./routes/reservationRoutes.js";
 
+const app = express();
 
-const app=express()
-dotenv.config({path:"./config/config.env"});
+// Load environment variables
+dotenv.config({ path: "./config/config.env" });
 
-
+// CORS configuration
 app.use(cors({
-    origin:[process.env.FRONTEND_URL],
-    methods:["POST"],
-    credentials: true
-}))
+    origin: process.env.FRONTEND_URL, // Allow requests from the frontend URL
+    methods: ["GET", "POST", "PUT", "DELETE"], // Allow necessary HTTP methods
+    credentials: true // Allow credentials (cookies, authorization headers, etc.)
+}));
 
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
-app.use('/api/v1/reservation', reservationRouter)
+// Middleware to parse JSON and URL-encoded data
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
+// Route handling
+app.use('/api/v1/reservation', reservationRouter);
 
-dbConnection()
+// Database connection
+dbConnection();
 
-app.use(errorMiddleware)
-export default app
+// Error handling middleware
+app.use(errorMiddleware);
+
+app.options('*', cors())
+export default app;
